@@ -1,0 +1,11 @@
+---
+description: Протокол памяти проекта (только пути, без содержимого handoff)
+alwaysApply: true
+---
+
+# Project memory protocol
+
+- L0: `docs/AGENT_HANDOFF.md`
+- L1: верх `docs/DEVLOG.md` (≤60 строк)
+- После задачи: 3–8 строк в L0 + запись в DEVLOG; handoff ≤150–200 строк
+- Не копировать содержимое handoff в rules

@@ -1,0 +1,23 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env
+*.log
+.idea/
+.vscode/
+.DS_Store
+dist/
+build/
+*.egg-info/
+gcode_to_gx.spec
+tmp_cal/
+pip-local.ini
+_thumb_b64.txt
+.pytest_cache/
+.mypy_cache/
+*.spec.bak
+# локальные эталоны FlashPrint (могут быть большими)
+fixtures/flashprint_dual.gx
+tests/fixtures/flashprint_dual.gx
