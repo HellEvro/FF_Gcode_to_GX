@@ -3,7 +3,7 @@
 > L0. Читать этот файл (+ верх DEVLOG при нужде). Архив — только по инциденту.
 > Код > docs. Секреты не писать.
 
-**Обновлено:** 2026-09-25 · **Repo:** https://github.com/HellEvro/FF_Gcode_to_GX (private)
+**Обновлено:** 2026-09-25 · **Repo:** https://github.com/HellEvro/FF_Gcode_to_GX (**public**) · Release [v0.1.0](https://github.com/HellEvro/FF_Gcode_to_GX/releases/tag/v0.1.0)
 
 ---
 
@@ -29,6 +29,8 @@ Post-process для Orca: G-code → Flashforge `.gx` (шапка + BMP 80×60).
 | Done | опц. Orca G-code `profiles/creator3pro/` (start владельца, pause M2000, end-заглушка) |
 | Done | local Windows `dist/gcode_to_gx.exe`; Mac/Linux — через CI (`macos-arm64`) |
 | Open | проверка на железе; эталон FlashPrint |
+| Done | public + Release v0.1.0; анонсы OrcaSlicer #9577/#2612; Discussions #1/#2 |
+| Blocked | Reddit login (network security) — тексты: `docs/ANNOUNCE_DRAFTS.md` |
 | Note | Cursor `GITHUB_TOKEN` без createRepo; push через git-credential |
 
 ---

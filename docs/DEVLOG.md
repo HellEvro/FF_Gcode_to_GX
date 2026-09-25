@@ -4,13 +4,16 @@
 
 ## 2026-09-25
 
+- **Public** https://github.com/HellEvro/FF_Gcode_to_GX + topics; Release **v0.1.0** (win/mac/linux binaries).
+- Анонсы: OrcaSlicer [#9577](https://github.com/OrcaSlicer/OrcaSlicer/issues/9577#issuecomment-5838692298), [#2612](https://github.com/OrcaSlicer/OrcaSlicer/issues/2612#issuecomment-5838692555); Discussions #1/#2.
+- Reddit (r/FlashForge Guider2, r/OrcaSlicer AD4 thumbnails, newbie GX Q) — login blocked; черновики `docs/ANNOUNCE_DRAFTS.md`.
+- README: ссылка на Releases.
+
 - Docs: `README.md` (EN) + `README.ru.md` (RU), language switch; generic paths.
 - Опц. Orca G-code владельца: `profiles/creator3pro/` (start, pause `M2000`, end-заглушка; удалён выдуманный `gcode/`).
 - Профили принтеров (`adventurer3/4/5m`, `creator3pro`, `generic_single/dual`); CLI `--printer` / env `GCODE_TO_GX_PRINTER`; auto-detect.
 - CI `build-binaries.yml` (win / macos-arm64 / linux); 11 pytest OK; Windows exe локально.
-
-- Private GitHub: https://github.com/HellEvro/FF_Gcode_to_GX (`origin` → push `main` OK).
-- `gh repo create` через Cursor `GITHUB_TOKEN` дал 403; репо создан API с git-credential токеном HellEvro.
+- Git: `origin` HellEvro/FF_Gcode_to_GX; `gh` через Cursor env-PAT ограничен — API через git-credential.
 
 ## 2026-09-23
 

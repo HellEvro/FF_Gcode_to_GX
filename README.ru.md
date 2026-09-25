@@ -83,7 +83,7 @@ python -m gcode_to_gx --printer creator3pro /path/to/file.gcode
 | macOS arm64 | `gcode_to_gx-macos-arm64` | `dist/gcode_to_gx` |
 | Linux x64 | `gcode_to_gx-linux-x64` | `dist/gcode_to_gx` |
 
-Скачайте артефакт с [GitHub Actions](../../actions) (workflow **Build binaries**) или соберите локально.
+Скачайте с [Releases](https://github.com/HellEvro/FF_Gcode_to_GX/releases) (предпочтительно) или из [GitHub Actions](../../actions) (workflow **Build binaries**), либо соберите локально.
 
 ### Orca: постобработка
 
