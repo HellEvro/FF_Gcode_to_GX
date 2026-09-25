@@ -4,9 +4,10 @@
 
 ## 2026-09-25
 
+- Docs: `README.md` (EN) + `README.ru.md` (RU), language switch; generic paths.
+- Опц. шаблоны machine G-code: `gcode/creator3pro/` (start/end/toolchange; community-inspired, не official FF).
 - Профили принтеров (`adventurer3/4/5m`, `creator3pro`, `generic_single/dual`); CLI `--printer` / env `GCODE_TO_GX_PRINTER`; auto-detect.
-- README: Win/macOS/Linux, generic paths; CI `build-binaries.yml` (win / macos-arm64 / linux).
-- 11 pytest OK; локальная сборка Windows exe. macOS CI → `macos-latest` (arm64; macos-13 очередь зависала).
+- CI `build-binaries.yml` (win / macos-arm64 / linux); 11 pytest OK; Windows exe локально.
 
 - Private GitHub: https://github.com/HellEvro/FF_Gcode_to_GX (`origin` → push `main` OK).
 - `gh repo create` через Cursor `GITHUB_TOKEN` дал 403; репо создан API с git-credential токеном HellEvro.

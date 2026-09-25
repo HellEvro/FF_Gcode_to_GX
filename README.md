@@ -1,13 +1,15 @@
-# G-code → GX для Orca Slicer (Flashforge)
+# G-code → GX for Orca Slicer (Flashforge)
 
-Конвертер для поля **«Скрипты постобработки»** в Orca: берёт временный файл после нарезки, вшивает шапку Flashforge и эскиз 80×60, перезаписывает файл как `.gx`. Дальше сохранение/отправка — штатными кнопками Orca.
+[Русский](README.ru.md)
 
-Поддерживаются одно- и двухголовые Flashforge (см. профили ниже). Конвертер **не** настраивает IDEX/toolchange — нужен подходящий профиль Orca (community dual: [OrcaSlicer#9577](https://github.com/OrcaSlicer/OrcaSlicer/issues/9577)).
+Converter for Orca’s **Post-processing scripts** field: takes the temporary file after slicing, embeds a Flashforge header and an 80×60 thumbnail, and overwrites the file as `.gx`. Save/send afterward with Orca’s normal buttons.
 
-## Профили принтеров
+Supports single- and dual-extruder Flashforge printers (see profiles below). The converter does **not** configure IDEX/toolchange — use a matching Orca profile (community dual: [OrcaSlicer#9577](https://github.com/OrcaSlicer/OrcaSlicer/issues/9577)).
 
-| ID | Принтер | Режим |
-|----|---------|--------|
+## Printer profiles
+
+| ID | Printer | Mode |
+|----|---------|------|
 | `adventurer3` | Adventurer 3 | single |
 | `adventurer4` | Adventurer 4 | single |
 | `adventurer5m` | Adventurer 5M | single |
@@ -15,17 +17,17 @@
 | `generic_single` | Generic Flashforge | single |
 | `generic_dual` | Generic Flashforge | dual |
 
-Разметка `.gx` общая: шапка 58 байт + BMP 14454 байт, G-code с offset 14512. Профиль задаёт `multi_extruder_type` и dual/single metadata.
+`.gx` layout is shared: 58-byte header + 14454-byte BMP, G-code starting at offset 14512. The profile sets `multi_extruder_type` and dual/single metadata.
 
-### Выбор профиля
+### Choosing a profile
 
-Приоритет:
+Priority:
 
-1. Флаг `--printer ID` / `-p ID`
-2. Переменная окружения `GCODE_TO_GX_PRINTER`
-3. Auto-detect по G-code (два значения filament/nozzle или `T1`) → `generic_dual` / `generic_single`
+1. Flag `--printer ID` / `-p ID`
+2. Environment variable `GCODE_TO_GX_PRINTER`
+3. Auto-detect from G-code (two filament/nozzle values or `T1`) → `generic_dual` / `generic_single`
 
-Примеры:
+Examples:
 
 ```bash
 gcode_to_gx --printer creator3pro /path/to/file.gcode
@@ -40,11 +42,11 @@ export GCODE_TO_GX_PRINTER=adventurer4
 gcode_to_gx /path/to/file.gcode
 ```
 
-Orca передаёт путь к временному файлу **последним** аргументом — флаги должны стоять до пути.
+Orca passes the temporary file path as the **last** argument — flags must come before the path.
 
-## Установка из исходников
+## Install from source
 
-Нужен Python 3.10+.
+Requires Python 3.10+.
 
 ```bash
 git clone https://github.com/HellEvro/FF_Gcode_to_GX.git
@@ -52,9 +54,9 @@ cd FF_Gcode_to_GX
 python -m venv .venv
 ```
 
-Активация venv:
+Activate the venv:
 
-| ОС | Команда |
+| OS | Command |
 |----|---------|
 | Windows (PowerShell) | `.\.venv\Scripts\Activate.ps1` |
 | Windows (cmd) | `.venv\Scripts\activate.bat` |
@@ -62,33 +64,33 @@ python -m venv .venv
 
 ```bash
 pip install -e .
-# или с тестовыми/сборочными зависимостями:
+# or with test/build dependencies:
 pip install -e ".[dev]"
 ```
 
-Запуск без сборки бинарника:
+Run without building a binary:
 
 ```bash
 python -m gcode_to_gx /path/to/file.gcode
 python -m gcode_to_gx --printer creator3pro /path/to/file.gcode
 ```
 
-## Готовый бинарник (рекомендуется для Orca)
+## Prebuilt binary (recommended for Orca)
 
-| Платформа | Имя артефакта (CI) | Локальная сборка |
-|-----------|--------------------|------------------|
+| Platform | CI artifact name | Local build |
+|----------|------------------|-------------|
 | Windows x64 | `gcode_to_gx-windows-x64.exe` | `dist/gcode_to_gx.exe` |
 | macOS arm64 | `gcode_to_gx-macos-arm64` | `dist/gcode_to_gx` |
 | Linux x64 | `gcode_to_gx-linux-x64` | `dist/gcode_to_gx` |
 
-Скачайте артефакт с [GitHub Actions](../../actions) (workflow **Build binaries**) или соберите локально.
+Download the artifact from [GitHub Actions](../../actions) (workflow **Build binaries**) or build locally.
 
-### Orca: постобработка
+### Orca post-processing
 
-В Orca: **Процесс → Прочее**:
+In Orca: **Process → Others**:
 
-1. **Формат имени файла** — с расширением `.gx` (например `*.gx`).
-2. **Скрипты постобработки** — путь к бинарнику (и опционально `--printer`):
+1. **Filename format** — use the `.gx` extension (e.g. `*.gx`).
+2. **Post-processing scripts** — path to the binary (and optionally `--printer`):
 
 **Windows:**
 
@@ -96,7 +98,7 @@ python -m gcode_to_gx --printer creator3pro /path/to/file.gcode
 "%USERPROFILE%\Apps\gcode_to_gx\gcode_to_gx.exe"
 ```
 
-С явным профилем:
+With an explicit profile:
 
 ```text
 "%USERPROFILE%\Apps\gcode_to_gx\gcode_to_gx.exe" --printer creator3pro
@@ -108,7 +110,7 @@ python -m gcode_to_gx --printer creator3pro /path/to/file.gcode
 "/path/to/gcode_to_gx" --printer adventurer5m
 ```
 
-Перед первым запуском: `chmod +x /path/to/gcode_to_gx`. Если Gatekeeper блокирует: `xattr -dr com.apple.quarantine /path/to/gcode_to_gx`.
+Before the first run: `chmod +x /path/to/gcode_to_gx`. If Gatekeeper blocks it: `xattr -dr com.apple.quarantine /path/to/gcode_to_gx`.
 
 **Linux:**
 
@@ -116,13 +118,13 @@ python -m gcode_to_gx --printer creator3pro /path/to/file.gcode
 "/path/to/gcode_to_gx" --printer adventurer3
 ```
 
-Также: `chmod +x /path/to/gcode_to_gx`.
+Also: `chmod +x /path/to/gcode_to_gx`.
 
-Кавычки обязательны, если в пути есть пробелы. Orca допишет путь к временному файлу в конец строки.
+Quotes are required if the path contains spaces. Orca appends the temporary file path at the end of the line.
 
-3. Нарежьте модель и сохраните/отправьте как обычно. На экране принтера должен появиться эскиз.
+3. Slice the model and save/send as usual. A thumbnail should appear on the printer screen.
 
-### Отладка через Python (без бинарника)
+### Debug via Python (no binary)
 
 **Windows:**
 
@@ -136,48 +138,58 @@ python -m gcode_to_gx --printer creator3pro /path/to/file.gcode
 "/path/to/FF_Gcode_to_GX/.venv/bin/python" "/path/to/FF_Gcode_to_GX/src/gcode_to_gx/cli.py" --printer creator3pro
 ```
 
-## Сборка бинарника локально
+## Build a binary locally
 
 ```bash
 pip install -e ".[dev]"
 python scripts/build_exe.py
 ```
 
-Скрипт собирает one-file через PyInstaller для **текущей** ОС:
+The script builds a one-file binary via PyInstaller for the **current** OS:
 
-- Windows → `dist/gcode_to_gx.exe` (+ копия `gcode_to_gx-windows-x64.exe`)
-- macOS / Linux → `dist/gcode_to_gx` (+ копия с тегом платформы)
+- Windows → `dist/gcode_to_gx.exe` (+ copy `gcode_to_gx-windows-x64.exe`)
+- macOS / Linux → `dist/gcode_to_gx` (+ platform-tagged copy)
 
-Кросс-сборка с одной машины на другую не поддерживается. Бинарники для всех ОС собирает CI.
+Cross-compilation from one machine to another is not supported. CI builds binaries for all OSes.
 
 ## GitHub Actions (Windows + macOS + Linux)
 
-Workflow `.github/workflows/build-binaries.yml` собирает артефакты на `windows-latest`, `macos-latest` (arm64), `ubuntu-latest`.
+Workflow `.github/workflows/build-binaries.yml` builds artifacts on `windows-latest`, `macos-latest` (arm64), and `ubuntu-latest`.
 
 ```bash
 gh workflow run build-binaries.yml
 gh run watch
 ```
 
-Артефакты: `gcode_to_gx-windows-x64.exe`, `gcode_to_gx-macos-arm64`, `gcode_to_gx-linux-x64`.
+Artifacts: `gcode_to_gx-windows-x64.exe`, `gcode_to_gx-macos-arm64`, `gcode_to_gx-linux-x64`.
 
-## Сверка с FlashPrint
+## Compare with FlashPrint
 
-1. В FlashPrint сохраните рабочий `.gx` для вашего принтера.
-2. Положите его как `tests/fixtures/flashprint_dual.gx` или рядом (эталон в gitignore).
-3. Сравните:
+1. In FlashPrint, save a working `.gx` for your printer.
+2. Place it as `tests/fixtures/flashprint_dual.gx` or nearby (reference files are gitignored).
+3. Compare:
 
 ```bash
 python scripts/calibrate_header.py /path/to/our.gx /path/to/flashprint_sample.gx
 ```
 
-## Что внутри .gx
+## What’s inside .gx
 
-`шапка 58 байт` + `BMP 80×60 (14454 байт)` + `G-code` (старт G-code с offset 14512).
+`58-byte header` + `BMP 80×60 (14454 bytes)` + `G-code` (G-code starts at offset 14512).
 
-Конвертер **не** вставляет T0/T1 — toolchange задаётся профилем Orca.
+The converter does **not** insert T0/T1 — toolchange comes from the Orca profile.
 
-## Тесты
+## Optional: Creator 3 Pro machine G-code
+
+Under [`gcode/creator3pro/`](gcode/creator3pro/) there are **optional** start / end / toolchange templates for Flashforge Creator 3 Pro.
+
+- Not official Flashforge; not endorsed by the manufacturer.
+- Community-inspired starting points — **adapt** for your firmware and Orca placeholders.
+- Machine G-code does **not** replace this converter: you still need the post-processing script for the `.gx` header + thumbnail.
+
+See [`gcode/creator3pro/README.md`](gcode/creator3pro/README.md).
+
+## Tests
 
 ```bash
 pip install -e ".[dev]"

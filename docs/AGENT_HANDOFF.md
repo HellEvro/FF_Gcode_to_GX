@@ -25,7 +25,8 @@ Post-process для Orca: G-code → Flashforge `.gx` (шапка + BMP 80×60).
 | Статус | Что |
 |--------|-----|
 | Done | профили `src/gcode_to_gx/printers/`; CLI `--printer` / `GCODE_TO_GX_PRINTER`; auto-detect |
-| Done | README Win/macOS/Linux (generic paths); CI `build-binaries.yml` |
+| Done | README EN + `README.ru.md` (language switch); CI `build-binaries.yml` |
+| Done | опц. шаблоны `gcode/creator3pro/` (start/end/toolchange; не official FF) |
 | Done | local Windows `dist/gcode_to_gx.exe`; Mac/Linux — через CI (`macos-arm64`) |
 | Open | проверка на железе; эталон FlashPrint |
 | Note | Cursor `GITHUB_TOKEN` без createRepo; push через git-credential |
@@ -39,6 +40,7 @@ Post-process для Orca: G-code → Flashforge `.gx` (шапка + BMP 80×60).
 | Интеграция | бинарник в post-processing Orca |
 | Принтеры | adventurer3/4/5m, creator3pro, generic_single/dual |
 | Layout GX | общий (58 + 14454, offset 14512) |
+| Docs | EN primary `README.md`, RU `README.ru.md`; generic paths only |
 
 ---
 
@@ -48,6 +50,7 @@ Post-process для Orca: G-code → Flashforge `.gx` (шапка + BMP 80×60).
 |------|-----|
 | Ядро | `src/gcode_to_gx/` |
 | Профили | `src/gcode_to_gx/printers/` |
+| Опц. G-code | `gcode/creator3pro/` |
 | Сборка | `scripts/build_exe.py` |
 | CI | `.github/workflows/build-binaries.yml` |
 | Калибровка | `scripts/calibrate_header.py` |
@@ -60,6 +63,7 @@ Post-process для Orca: G-code → Flashforge `.gx` (шапка + BMP 80×60).
 - Не вставлять T0/T1 в конвертере — профиль Orca.
 - Orca путь — последний argv; флаги до пути.
 - PyInstaller не кросс-компилирует; Mac/Linux из CI.
+- Machine G-code ≠ `.gx` header; шаблоны C3Pro — optional, adapt firmware.
 
 ---
 
