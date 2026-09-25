@@ -3,7 +3,7 @@
 > L0. Читать этот файл (+ верх DEVLOG при нужде). Архив — только по инциденту.
 > Код > docs. Секреты не писать.
 
-**Обновлено:** 2026-09-23 · **Repo:** Gcode_to_Gx · **Local:** E:\Drive\Projects\Gcode_to_Gx
+**Обновлено:** 2026-09-25 · **Repo:** https://github.com/HellEvro/FF_Gcode_to_GX (private) · **Local:** E:\Drive\Projects\Gcode_to_Gx
 
 ---
 
@@ -25,8 +25,10 @@ Post-process для Orca: G-code → Flashforge `.gx` (dual header + BMP 80×60)
 | Статус | Что |
 |--------|-----|
 | Done | dual-конвертер, CLI, pytest, `dist/gcode_to_gx.exe`, calibrate script |
+| Done | private GitHub: HellEvro/FF_Gcode_to_GX, origin push OK |
 | Open | пользователь кладёт эталон FlashPrint; проверка на Creator 3 Pro |
 | Next | вписать exe в Orca post-process; сверить с FlashPrint `.gx` |
+| Note | Cursor `GITHUB_TOKEN` без createRepo; create через git-credential `gho_` + API |
 
 ---
 
