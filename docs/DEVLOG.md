@@ -4,6 +4,9 @@
 
 ## 2026-09-25
 
+- Reddit (HellEvro): [C3Pro G-code+.gx](https://www.reddit.com/r/FlashForge/comments/1wq6iv9/creator_3_pro_orca_machine_gcode_snippets_gx/) + crosspost r/OrcaSlicer; [filament request](https://www.reddit.com/r/FlashForge/comments/1wq6lc1/creator_3_pro_filament_settings_for_orca_pla_petg/).
+- Discussions #3–#5; OrcaSlicer #9577 update. Comments в старых тредах — composer в Shadow DOM, частично вручную.
+
 - Discussions: **#3** share C3Pro machine G-code; **#4** request best Orca presets; **#5** request filament presets (PETG Reddit: `/tnqzom`).
 - Update comment на OrcaSlicer #9577 со ссылками на #3–#5.
 - `docs/ANNOUNCE_DRAFTS.md` — Reddit replies/new posts (C3Pro + GX); Cursor-browser всё ещё blocked.

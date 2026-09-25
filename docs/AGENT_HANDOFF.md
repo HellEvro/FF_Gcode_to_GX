@@ -30,8 +30,8 @@ Post-process для Orca: G-code → Flashforge `.gx` (шапка + BMP 80×60).
 | Done | local Windows `dist/gcode_to_gx.exe`; Mac/Linux — через CI (`macos-arm64`) |
 | Open | проверка на железе; эталон FlashPrint |
 | Done | public + Release v0.1.0; анонсы OrcaSlicer #9577/#2612; Discussions #1–#5 |
-| Done | C3Pro: Discussions #3 (share G-code), #4 (best Orca), #5 (filament) |
-| Blocked | Reddit Cursor-browser = network security; черновики `docs/ANNOUNCE_DRAFTS.md` |
+| Done | C3Pro: Discussions #3–#5; Reddit posts r/FlashForge + crosspost r/OrcaSlicer |
+| Open | проверка на железе; эталон FlashPrint; replies в старых Reddit-тредах (composer) |
 | Note | Cursor `GITHUB_TOKEN` без createRepo; push через git-credential |
 
 ---
