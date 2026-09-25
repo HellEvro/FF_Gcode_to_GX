@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
+import os
+import shutil
 import struct
 from dataclasses import dataclass
 
 from gcode_to_gx import GX_BMP_OFFSET, GX_BMP_SIZE, GX_GCODE_OFFSET, GX_HEADER_SIZE
-from gcode_to_gx.metadata import PrintMetadata
+from gcode_to_gx.metadata import PrintMetadata, extract_metadata
+from gcode_to_gx.printers.registry import PrinterProfile, resolve_profile
+from gcode_to_gx.thumbnail import extract_thumbnail_bmp
 
 
 MAGIC = b"xgcode 1.0\n\0"
@@ -105,20 +109,15 @@ def validate_gx_layout(data: bytes) -> None:
         raise ValueError("BMP signature missing at offset 58")
 
 
-def convert_file(path: str) -> None:
+def convert_file(path: str, printer_id: str | None = None) -> PrinterProfile:
     """Читает G-code по path и перезаписывает тем же путём как .gx (для Orca post-process)."""
-    import os
-    import shutil
-
-    from gcode_to_gx.metadata import extract_metadata
-    from gcode_to_gx.thumbnail import extract_thumbnail_bmp
-
     with open(path, "r", encoding="utf-8", errors="ignore") as fh:
         lines = fh.readlines()
     if not lines:
         raise ValueError(f"Empty or unreadable file: {path}")
 
-    meta = extract_metadata(lines)
+    profile = resolve_profile(printer_id, lines=lines)
+    meta = extract_metadata(lines, profile=profile)
     bmp = extract_thumbnail_bmp(lines)
     gcode_text = "".join(lines)
     gx_data = encode_gx(meta, bmp, gcode_text)
@@ -127,6 +126,6 @@ def convert_file(path: str) -> None:
     with open(temp_path, "wb") as out:
         out.write(gx_data)
     shutil.move(temp_path, path)
-    # убрать хвост .tmp если move не удалил на Windows
     if os.path.exists(temp_path):
         os.remove(temp_path)
+    return profile

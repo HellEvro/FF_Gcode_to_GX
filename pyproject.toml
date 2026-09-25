@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gcode-to-gx"
-version = "1.0.0"
-description = "Orca G-code → Flashforge .gx (dual + thumbnail) for Creator 3 Pro"
+version = "1.1.0"
+description = "Orca G-code → Flashforge .gx (single/dual + thumbnail) for Adventurer / Creator"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "GPL-3.0-or-later" }

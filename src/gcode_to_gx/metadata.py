@@ -1,8 +1,10 @@
-"""Парсинг метаданных из комментариев Orca G-code (dual-экструдер)."""
+"""Парсинг метаданных из комментариев Orca G-code."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+
+from gcode_to_gx.printers.registry import PrinterProfile
 
 
 @dataclass
@@ -49,7 +51,10 @@ def _parse_print_time(value: str) -> int:
     return h * 3600 + m * 60 + s
 
 
-def extract_metadata(lines: list[str]) -> PrintMetadata:
+def extract_metadata(
+    lines: list[str],
+    profile: PrinterProfile | None = None,
+) -> PrintMetadata:
     meta = PrintMetadata()
     for line in lines:
         stripped = line.strip()
@@ -97,4 +102,17 @@ def extract_metadata(lines: list[str]) -> PrintMetadata:
 
     if meta.print_time < 1:
         meta.print_time = 1
+
+    if profile is not None:
+        apply_profile(meta, profile)
+
+    return meta
+
+
+def apply_profile(meta: PrintMetadata, profile: PrinterProfile) -> PrintMetadata:
+    """Применяет dual/single флаги профиля к уже распарсенным метаданным."""
+    meta.multi_extruder_type = profile.multi_extruder_type
+    if not profile.dual:
+        meta.filament_left_mm = 0
+        meta.nozzle_left = 0
     return meta

@@ -1,30 +1,61 @@
-"""CLI для Orca post-processing: gcode_to_gx.exe <path>."""
+"""CLI для Orca post-processing: gcode_to_gx [--printer ID] PATH."""
 
 from __future__ import annotations
 
+import argparse
 import sys
+
+from gcode_to_gx.gx_writer import convert_file
+from gcode_to_gx.printers.registry import PRINTER_IDS
+
+
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="gcode_to_gx",
+        description=(
+            "Конвертер Orca G-code → Flashforge .gx. "
+            "Orca передаёт путь к временному файлу последним аргументом; "
+            "файл перезаписывается как .gx."
+        ),
+    )
+    parser.add_argument(
+        "--printer",
+        "-p",
+        metavar="ID",
+        help=(
+            "ID профиля принтера. "
+            f"Доступно: {', '.join(PRINTER_IDS)}. "
+            "Либо переменная окружения GCODE_TO_GX_PRINTER. "
+            "Без флага — auto-detect dual/single по G-code."
+        ),
+    )
+    parser.add_argument(
+        "path",
+        help="Путь к временному G-code / .gx от Orca (последний аргумент).",
+    )
+    return parser
 
 
 def main(argv: list[str] | None = None) -> int:
-    args = list(sys.argv[1:] if argv is None else argv)
-    if len(args) != 1:
-        print(
-            "Usage: gcode_to_gx <path-to-gcode-or-gx-temp-file>\n"
-            "Orca передаёт один путь к временному файлу; файл перезаписывается как .gx.",
-            file=sys.stderr,
-        )
+    args_list = list(sys.argv[1:] if argv is None else argv)
+    if not args_list:
+        _build_parser().print_help(sys.stderr)
         return 2
 
-    path = args[0]
+    parser = _build_parser()
     try:
-        from gcode_to_gx.gx_writer import convert_file
+        args = parser.parse_args(args_list)
+    except SystemExit as exc:
+        code = exc.code
+        return int(code) if isinstance(code, int) else 2
 
-        convert_file(path)
+    try:
+        profile = convert_file(args.path, printer_id=args.printer)
     except Exception as exc:  # noqa: BLE001 — нужен полный лог для Orca
         print(f"gcode_to_gx ERROR: {exc}", file=sys.stderr)
         return 1
 
-    print(f"gcode_to_gx OK: {path}")
+    print(f"gcode_to_gx OK: {args.path} (printer={profile.id})")
     return 0
 
 

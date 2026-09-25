@@ -3,7 +3,7 @@
 > L0. Читать этот файл (+ верх DEVLOG при нужде). Архив — только по инциденту.
 > Код > docs. Секреты не писать.
 
-**Обновлено:** 2026-09-25 · **Repo:** https://github.com/HellEvro/FF_Gcode_to_GX (private) · **Local:** E:\Drive\Projects\Gcode_to_Gx
+**Обновлено:** 2026-09-25 · **Repo:** https://github.com/HellEvro/FF_Gcode_to_GX (private)
 
 ---
 
@@ -16,7 +16,7 @@
 
 ## 1. Суть проекта
 
-Post-process для Orca: G-code → Flashforge `.gx` (dual header + BMP 80×60) для Creator 3 Pro. Доставка — `dist/gcode_to_gx.exe` в «Скрипты постобработки».
+Post-process для Orca: G-code → Flashforge `.gx` (шапка + BMP 80×60). Профили single/dual под Adventurer / Creator 3 Pro. Доставка — бинарник в «Скрипты постобработки».
 
 ---
 
@@ -24,11 +24,11 @@ Post-process для Orca: G-code → Flashforge `.gx` (dual header + BMP 80×60)
 
 | Статус | Что |
 |--------|-----|
-| Done | dual-конвертер, CLI, pytest, `dist/gcode_to_gx.exe`, calibrate script |
-| Done | private GitHub: HellEvro/FF_Gcode_to_GX, origin push OK |
-| Open | пользователь кладёт эталон FlashPrint; проверка на Creator 3 Pro |
-| Next | вписать exe в Orca post-process; сверить с FlashPrint `.gx` |
-| Note | Cursor `GITHUB_TOKEN` без createRepo; create через git-credential `gho_` + API |
+| Done | профили `src/gcode_to_gx/printers/`; CLI `--printer` / `GCODE_TO_GX_PRINTER`; auto-detect |
+| Done | README Win/macOS/Linux (generic paths); CI `build-binaries.yml` |
+| Done | local Windows `dist/gcode_to_gx.exe`; Mac/Linux — через CI |
+| Open | проверка на железе; эталон FlashPrint |
+| Note | Cursor `GITHUB_TOKEN` без createRepo; push через git-credential |
 
 ---
 
@@ -36,9 +36,9 @@ Post-process для Orca: G-code → Flashforge `.gx` (dual header + BMP 80×60)
 
 | Тема | Решение |
 |------|---------|
-| Интеграция | .exe в post-processing Orca, не native plugin |
-| Режим | две головы (dual), не Copy/Mirror |
-| Принтер | Flashforge Creator 3 Pro |
+| Интеграция | бинарник в post-processing Orca |
+| Принтеры | adventurer3/4/5m, creator3pro, generic_single/dual |
+| Layout GX | общий (58 + 14454, offset 14512) |
 
 ---
 
@@ -47,24 +47,27 @@ Post-process для Orca: G-code → Flashforge `.gx` (dual header + BMP 80×60)
 | Зона | Где |
 |------|-----|
 | Ядро | `src/gcode_to_gx/` |
-| Сборка exe | `scripts/build_exe.py` |
+| Профили | `src/gcode_to_gx/printers/` |
+| Сборка | `scripts/build_exe.py` |
+| CI | `.github/workflows/build-binaries.yml` |
 | Калибровка | `scripts/calibrate_header.py` |
-| Инструкция Orca | `README.md` |
 
 ---
 
 ## 5. Ловушки
 
-- BMP должен быть ровно 14454 байт (offset G-code 14512).
-- Не вставлять T0/T1 в конвертере — это профиль Orca.
-- Эталон FlashPrint пользователь кладёт сам (gitignore).
+- BMP ровно 14454 байт (offset G-code 14512).
+- Не вставлять T0/T1 в конвертере — профиль Orca.
+- Orca путь — последний argv; флаги до пути.
+- PyInstaller не кросс-компилирует; Mac/Linux из CI.
 
 ---
 
 ## 6. Durable decisions
 
-### GX dual
-- multi_extruder_type=1; filament/nozzle right+left из комментариев Orca.
+### GX + профили
+- dual: `multi_extruder_type=1`; single: `0`, left filament/nozzle = 0.
+- Default без флага/env: auto → `generic_dual` / `generic_single`.
 - In-place overwrite пути от Orca.
 
 ---
@@ -73,3 +76,4 @@ Post-process для Orca: G-code → Flashforge `.gx` (dual header + BMP 80×60)
 
 - Не править plan-файл Cursor.
 - Не force-push.
+- Не писать личные пути в README.

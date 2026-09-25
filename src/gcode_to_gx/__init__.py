@@ -1,6 +1,6 @@
-"""Конвертер Orca G-code → Flashforge .gx (dual + превью)."""
+"""Конвертер Orca G-code → Flashforge .gx (single/dual + превью)."""
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 GX_HEADER_SIZE = 58
 GX_BMP_OFFSET = 58

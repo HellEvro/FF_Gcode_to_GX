@@ -1,0 +1,63 @@
+name: Build binaries
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: gcode_to_gx-windows-x64.exe
+          - os: macos-13
+            artifact: gcode_to_gx-macos-x64
+          - os: ubuntu-latest
+            artifact: gcode_to_gx-linux-x64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package + PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Build binary
+        run: python scripts/build_exe.py
+
+      - name: Normalize artifact name (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Copy-Item -Force "dist\gcode_to_gx.exe" "dist\${{ matrix.artifact }}"
+
+      - name: Normalize artifact name (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          cp -f dist/gcode_to_gx "dist/${{ matrix.artifact }}"
+          chmod +x "dist/${{ matrix.artifact }}"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist/${{ matrix.artifact }}
+          if-no-files-found: error
