@@ -78,7 +78,7 @@ python -m gcode_to_gx --printer creator3pro /path/to/file.gcode
 | Платформа | Имя артефакта (CI) | Локальная сборка |
 |-----------|--------------------|------------------|
 | Windows x64 | `gcode_to_gx-windows-x64.exe` | `dist/gcode_to_gx.exe` |
-| macOS x64 | `gcode_to_gx-macos-x64` | `dist/gcode_to_gx` |
+| macOS arm64 | `gcode_to_gx-macos-arm64` | `dist/gcode_to_gx` |
 | Linux x64 | `gcode_to_gx-linux-x64` | `dist/gcode_to_gx` |
 
 Скачайте артефакт с [GitHub Actions](../../actions) (workflow **Build binaries**) или соберите локально.
@@ -152,14 +152,14 @@ python scripts/build_exe.py
 
 ## GitHub Actions (Windows + macOS + Linux)
 
-Workflow `.github/workflows/build-binaries.yml` собирает артефакты на `windows-latest`, `macos-13`, `ubuntu-latest`.
+Workflow `.github/workflows/build-binaries.yml` собирает артефакты на `windows-latest`, `macos-latest` (arm64), `ubuntu-latest`.
 
 ```bash
 gh workflow run build-binaries.yml
 gh run watch
 ```
 
-Артефакты: `gcode_to_gx-windows-x64.exe`, `gcode_to_gx-macos-x64`, `gcode_to_gx-linux-x64`.
+Артефакты: `gcode_to_gx-windows-x64.exe`, `gcode_to_gx-macos-arm64`, `gcode_to_gx-linux-x64`.
 
 ## Сверка с FlashPrint
 

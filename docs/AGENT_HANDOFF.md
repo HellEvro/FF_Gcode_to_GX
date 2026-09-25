@@ -26,7 +26,7 @@ Post-process для Orca: G-code → Flashforge `.gx` (шапка + BMP 80×60).
 |--------|-----|
 | Done | профили `src/gcode_to_gx/printers/`; CLI `--printer` / `GCODE_TO_GX_PRINTER`; auto-detect |
 | Done | README Win/macOS/Linux (generic paths); CI `build-binaries.yml` |
-| Done | local Windows `dist/gcode_to_gx.exe`; Mac/Linux — через CI |
+| Done | local Windows `dist/gcode_to_gx.exe`; Mac/Linux — через CI (`macos-arm64`) |
 | Open | проверка на железе; эталон FlashPrint |
 | Note | Cursor `GITHUB_TOKEN` без createRepo; push через git-credential |
 

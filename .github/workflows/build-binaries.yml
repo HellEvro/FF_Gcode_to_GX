@@ -19,8 +19,8 @@ jobs:
         include:
           - os: windows-latest
             artifact: gcode_to_gx-windows-x64.exe
-          - os: macos-13
-            artifact: gcode_to_gx-macos-x64
+          - os: macos-latest
+            artifact: gcode_to_gx-macos-arm64
           - os: ubuntu-latest
             artifact: gcode_to_gx-linux-x64
 
