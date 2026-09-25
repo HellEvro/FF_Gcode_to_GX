@@ -4,6 +4,10 @@
 
 ## 2026-09-25
 
+- Discussions: **#3** share C3Pro machine G-code; **#4** request best Orca presets; **#5** request filament presets (PETG Reddit: `/tnqzom`).
+- Update comment на OrcaSlicer #9577 со ссылками на #3–#5.
+- `docs/ANNOUNCE_DRAFTS.md` — Reddit replies/new posts (C3Pro + GX); Cursor-browser всё ещё blocked.
+
 - **Public** https://github.com/HellEvro/FF_Gcode_to_GX + topics; Release **v0.1.0** (win/mac/linux binaries).
 - Анонсы: OrcaSlicer [#9577](https://github.com/OrcaSlicer/OrcaSlicer/issues/9577#issuecomment-5838692298), [#2612](https://github.com/OrcaSlicer/OrcaSlicer/issues/2612#issuecomment-5838692555); Discussions #1/#2.
 - Reddit (r/FlashForge Guider2, r/OrcaSlicer AD4 thumbnails, newbie GX Q) — login blocked; черновики `docs/ANNOUNCE_DRAFTS.md`.
