@@ -5,7 +5,7 @@
 ## 2026-09-25
 
 - Docs: `README.md` (EN) + `README.ru.md` (RU), language switch; generic paths.
-- Опц. шаблоны machine G-code: `gcode/creator3pro/` (start/end/toolchange; community-inspired, не official FF).
+- Опц. Orca G-code владельца: `profiles/creator3pro/` (start, pause `M2000`, end-заглушка; удалён выдуманный `gcode/`).
 - Профили принтеров (`adventurer3/4/5m`, `creator3pro`, `generic_single/dual`); CLI `--printer` / env `GCODE_TO_GX_PRINTER`; auto-detect.
 - CI `build-binaries.yml` (win / macos-arm64 / linux); 11 pytest OK; Windows exe локально.
 

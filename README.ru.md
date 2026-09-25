@@ -181,13 +181,19 @@ python scripts/calibrate_header.py /path/to/our.gx /path/to/flashprint_sample.gx
 
 ## Опционально: machine G-code для Creator 3 Pro
 
-В [`gcode/creator3pro/`](gcode/creator3pro/) лежат **опциональные** шаблоны start / end / toolchange для Flashforge Creator 3 Pro.
+В [`profiles/creator3pro/`](profiles/creator3pro/) — **опциональные** сниппеты machine G-code Orca для Flashforge Creator 3 Pro:
+
+| Файл | Поле в Orca |
+|------|-------------|
+| [`machine_start.gcode`](profiles/creator3pro/machine_start.gcode) | Стартовый G-код |
+| [`machine_end.gcode`](profiles/creator3pro/machine_end.gcode) | Завершающий G-код (**заглушка** — вставка «end» совпала со start; проверьте / замените) |
+| [`machine_pause.gcode`](profiles/creator3pro/machine_pause.gcode) | G-код паузы печати (`; pause print` + `M2000`) |
 
 - Не официальные материалы Flashforge; без endorsement производителя.
-- Community-шаблоны — **адаптируйте** под прошивку и плейсхолдеры Orca.
+- Start и pause — от владельца принтера; при другой версии Orca проверьте плейсхолдеры.
 - Machine G-code **не** заменяет конвертер: post-processing script для шапки `.gx` + эскиза всё равно нужен.
 
-См. [`gcode/creator3pro/README.md`](gcode/creator3pro/README.md).
+См. [`profiles/creator3pro/README.md`](profiles/creator3pro/README.md).
 
 ## Тесты
 

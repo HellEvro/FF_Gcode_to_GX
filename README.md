@@ -181,13 +181,19 @@ The converter does **not** insert T0/T1 — toolchange comes from the Orca profi
 
 ## Optional: Creator 3 Pro machine G-code
 
-Under [`gcode/creator3pro/`](gcode/creator3pro/) there are **optional** start / end / toolchange templates for Flashforge Creator 3 Pro.
+Under [`profiles/creator3pro/`](profiles/creator3pro/) there are **optional** Orca machine G-code snippets for Flashforge Creator 3 Pro:
+
+| File | Use in Orca |
+|------|-------------|
+| [`machine_start.gcode`](profiles/creator3pro/machine_start.gcode) | Machine start |
+| [`machine_end.gcode`](profiles/creator3pro/machine_end.gcode) | Machine end (**placeholder** — owner’s end paste matched start; review / replace) |
+| [`machine_pause.gcode`](profiles/creator3pro/machine_pause.gcode) | Print pause (`; pause print` + `M2000`) |
 
 - Not official Flashforge; not endorsed by the manufacturer.
-- Community-inspired starting points — **adapt** for your firmware and Orca placeholders.
+- Start and pause come from the printer owner; adapt placeholders if your Orca version differs.
 - Machine G-code does **not** replace this converter: you still need the post-processing script for the `.gx` header + thumbnail.
 
-See [`gcode/creator3pro/README.md`](gcode/creator3pro/README.md).
+See [`profiles/creator3pro/README.md`](profiles/creator3pro/README.md).
 
 ## Tests
 
